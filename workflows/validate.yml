@@ -1,0 +1,23 @@
+name: Validate Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Confirm repository structure
+        run: |
+          echo "Pull request validation is running."
+          echo "Angular validation will be added after the Angular project is created."
