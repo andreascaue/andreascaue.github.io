@@ -1,0 +1,72 @@
+<section class="support-section">
+  <div class="wrap">
+    <div class="support-card">
+      <div>
+        <div class="eyebrow">Support the writing</div>
+        <h2>If a piece here saved you an afternoon, <em>buy me a coffee.</em></h2>
+        <p>
+          Most of what I create is shared for free, and I&rsquo;d like to keep it accessible for as long as I can.
+          This site is where I publish practical notes, essays, learning materials, and courses about software
+          engineering, architecture, code quality, and real-world development. Donations help support the time and
+          cost behind the work: hosting, tools, research, writing, editing, and creating new material.
+        </p>
+        <p>
+          One-time or monthly, whatever fits. No pressure, no complicated tiers, no exclusive club behind a velvet
+          rope. Just support from people who find the work useful, and a sincere thank-you from my side.
+        </p>
+        <div class="signature">— Andreas</div>
+      </div>
+
+      <aside class="donate-panel" id="donate">
+        <div class="ptitle">Choose an amount</div>
+
+        <div class="freq-toggle">
+          <button [class.sel]="frequency() === 'once'" (click)="selectFrequency('once')">One-time</button>
+          <button [class.sel]="frequency() === 'monthly'" (click)="selectFrequency('monthly')">Monthly</button>
+        </div>
+
+        <div class="donate-amounts">
+          @for (p of presetAmounts; track p.value) {
+            <button [class.sel]="isPresetActive(p.value)" (click)="selectAmount(p.value)">
+              <span class="a">${{ p.value }}</span>
+              <span class="l">{{ p.label }}</span>
+            </button>
+          }
+        </div>
+
+        <div class="donate-custom">
+          <span>$</span>
+          <input
+            type="number"
+            min="1"
+            step="1"
+            placeholder="Or type a custom amount"
+            [value]="customAmount()"
+            (input)="onCustomInput($event)"
+          />
+        </div>
+
+        <a class="btn btn-primary donate-go" [href]="donateUrl()" target="_blank" rel="noopener">
+          Send <span class="donate-summary">{{ summary() }}</span>
+        </a>
+
+        <div class="donate-platforms">
+          <a class="donate-plat" href="https://buymeacoffee.com/andreasmagalhaes" target="_blank" rel="noopener">
+            <span class="ic ic-bmc">☕</span><span>Buy Me a Coffee</span>
+          </a>
+          <a class="donate-plat" href="https://paypal.me/andreasmagalhaes" target="_blank" rel="noopener">
+            <span class="ic ic-pp">P</span><span>PayPal</span>
+          </a>
+          <a class="donate-plat" href="https://github.com/sponsors/andreascaue" target="_blank" rel="noopener">
+            <span class="ic ic-gh">♥</span><span>GitHub Sponsors</span>
+          </a>
+        </div>
+
+        <div class="donate-foot">
+          One-time amounts open PayPal pre-filled.<br />
+          Monthly opens GitHub Sponsors to pick a tier.
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

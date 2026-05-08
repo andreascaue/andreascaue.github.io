@@ -1,0 +1,118 @@
+<main>
+  <div class="wrap">
+    <section class="articles-head">
+      <div class="eyebrow">The Journal</div>
+      <h1>Essays on the craft of shipping software.</h1>
+      <p>Long-form writing, field notes from production, and the occasional short piece. Sorted by date; filter if you're in a hurry.</p>
+    </section>
+
+    <div class="filters">
+      @for (f of filters; track f.id) {
+        <button [class.active]="activeFilter() === f.id" (click)="setFilter(f.id)">{{ f.label }}</button>
+      }
+    </div>
+
+    <div class="article-list">
+      @if (filteredArticles().length === 0) {
+        <div class="empty">No essays in this topic yet.</div>
+      } @else {
+        @for (a of filteredArticles(); track a.n) {
+          <article class="article-row">
+            <div class="num">{{ formatNum(a.n) }}</div>
+            <div>
+              <h3>{{ a.title }}</h3>
+              <p class="excerpt">{{ a.excerpt }}</p>
+              <div class="tags">
+                @for (t of a.tags; track t) {
+                  <span class="t">{{ tagLabels[t] }}</span>
+                }
+              </div>
+            </div>
+            <div class="date">{{ a.date }}<span>{{ a.read }}</span></div>
+          </article>
+        }
+      }
+    </div>
+
+    <div class="archive-end">— end of current archive —</div>
+
+    <section class="section external-section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Also published on</div>
+          <h2>Substack &amp; Medium</h2>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a class="platform-link" [href]="substackProfileUrl" target="_blank" rel="noopener">
+            <span class="pmark pmark-sub">S</span>
+            <span>Open Substack</span>
+            <span class="arr">↗</span>
+          </a>
+          <a class="platform-link" [href]="mediumProfileUrl" target="_blank" rel="noopener">
+            <span class="pmark pmark-med">M</span>
+            <span>Open Medium</span>
+            <span class="arr">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="ext-grid">
+        <div class="ext-col">
+          <div class="ext-col-head">
+            <a class="pmark pmark-sub lg" [href]="substackPubUrl" target="_blank" rel="noopener" aria-label="Open Substack publication">S</a>
+            <div>
+              <a class="ext-col-title" [href]="substackPubUrl" target="_blank" rel="noopener">andreasmagalhaes.substack.com</a>
+              <div class="ext-col-sub">Newsletter · {{ substackPosts.length }} {{ substackPosts.length === 1 ? 'post' : 'posts' }}</div>
+            </div>
+          </div>
+          <div class="ext-list">
+            @if (substackPosts.length === 0) {
+              <div class="empty">Nothing published here yet.</div>
+            } @else {
+              @for (p of substackPosts; track p.title) {
+                <a class="ext-item" [href]="p.url" target="_blank" rel="noopener">
+                  <div class="ext-meta">
+                    @for (m of p.meta; track $index) {
+                      <span>{{ m }}</span>
+                      @if (!$last) { <span>·</span> }
+                    }
+                  </div>
+                  <h4>{{ p.title }}</h4>
+                  <p>{{ p.desc }}</p>
+                </a>
+              }
+            }
+          </div>
+        </div>
+
+        <div class="ext-col">
+          <div class="ext-col-head">
+            <a class="pmark pmark-med lg" [href]="mediumProfileUrl" target="_blank" rel="noopener" aria-label="Open Medium profile">M</a>
+            <div>
+              <a class="ext-col-title" [href]="mediumProfileUrl" target="_blank" rel="noopener">medium.com/&#64;andreascaue</a>
+              <div class="ext-col-sub">Articles · {{ mediumPosts.length }} {{ mediumPosts.length === 1 ? 'post' : 'posts' }}</div>
+            </div>
+          </div>
+          <div class="ext-list">
+            @if (mediumPosts.length === 0) {
+              <div class="empty">Nothing published here yet.</div>
+            } @else {
+              @for (p of mediumPosts; track p.title) {
+                <a class="ext-item" [href]="p.url" target="_blank" rel="noopener">
+                  <div class="ext-meta">
+                    @for (m of p.meta; track $index) {
+                      <span>{{ m }}</span>
+                      @if (!$last) { <span>·</span> }
+                    }
+                  </div>
+                  <h4>{{ p.title }}</h4>
+                  <p>{{ p.desc }}</p>
+                </a>
+              }
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

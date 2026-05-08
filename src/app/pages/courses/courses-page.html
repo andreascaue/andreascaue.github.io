@@ -1,0 +1,92 @@
+<main>
+  <div class="wrap">
+    <section class="courses-head">
+      <div class="eyebrow">Learning</div>
+      <h1>Practical courses. Real software lessons.</h1>
+      <p>
+        These courses are built from real development work: systems started from zero, legacy code improved over
+        time, production issues debugged, and technical decisions that had real consequences. The goal is to turn
+        those lessons into practical learning material for developers who want to build better software.
+      </p>
+    </section>
+
+    <div class="courses-grid">
+      @for (c of courses; track c.glyph) {
+        <article
+          class="course-card"
+          [attr.data-status]="c.status"
+          (click)="c.status === 'available' && scrollToDetail()"
+        >
+          <span class="badge">{{ c.badge }}</span>
+          <div class="glyph">{{ c.glyph }}</div>
+          <h3>{{ c.title }}</h3>
+          <p class="desc">{{ c.desc }}</p>
+          <div class="facts">
+            @for (f of c.facts; track f.label) {
+              <div><b>{{ f.value }}</b>{{ f.label }}</div>
+            }
+          </div>
+        </article>
+      }
+    </div>
+
+    <section class="course-detail" id="course-detail">
+      <div class="headline">
+        <div>
+          <div class="eyebrow">Course Nº 01 · Web Development Course</div>
+          <h2>A path from <em>"I don't know where to start"</em> to a portfolio worth sharing.</h2>
+          <p class="intro">
+            Six modules, one real project. Built for career-changers and self-taught developers
+            who've been piecing tutorials together and want a single, coherent arc to follow.
+          </p>
+        </div>
+        <aside class="enroll-card">
+          <div class="price">Free<small>· open enrollment</small></div>
+          <ul class="features">
+            @for (f of enrollFeatures; track f) {
+              <li>{{ f }}</li>
+            }
+          </ul>
+          <button class="btn btn-primary" (click)="enroll()">Enroll for free</button>
+          <div class="seats">free of charge</div>
+        </aside>
+      </div>
+
+      <div class="highlights">
+        @for (h of highlights; track h.n) {
+          <div class="highlight">
+            <div class="hnum">{{ h.n }}</div>
+            <h4>{{ h.title }}</h4>
+            <p>{{ h.desc }}</p>
+          </div>
+        }
+      </div>
+
+      <h3 class="modules-h">Modules</h3>
+      <div class="modules">
+        @for (m of modules; track m.num) {
+          <div class="module-row">
+            <div class="num">{{ m.num }}</div>
+            <div>
+              <h4>{{ m.title }}</h4>
+              <p>{{ m.desc }}</p>
+            </div>
+            <div class="dur">{{ m.dur }}</div>
+          </div>
+        }
+      </div>
+
+      <section class="journey">
+        <h3>On-demand, self-paced course</h3>
+        <div class="journey-steps">
+          @for (s of journey; track s.n) {
+            <div class="step" [attr.data-n]="s.n">
+              <h5>{{ s.title }}</h5>
+              <p>{{ s.desc }}</p>
+            </div>
+          }
+        </div>
+      </section>
+    </section>
+  </div>
+</main>

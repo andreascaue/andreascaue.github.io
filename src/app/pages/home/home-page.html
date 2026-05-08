@@ -1,0 +1,112 @@
+<main>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Personal Portal · Issue Nº 01</div>
+        <h1 class="display" style="margin-top: 22px;"><em>Software engineering </em> - between commits.</h1>
+        <p class="lede">
+          A practical journal for developers who care about what they build. Essays on software engineering,
+          architecture, code quality, performance, debugging, and the quiet discipline of turning messy problems
+          into reliable systems, plus the occasional course when a topic deserves more than an article.
+        </p>
+        <div class="meta-strip">
+          @for (s of stats; track s.label) {
+            <div class="stat"><b>{{ s.value }}</b><span>{{ s.label }}</span></div>
+          }
+        </div>
+      </div>
+      <aside class="hero-right">
+        <img class="hero-logo" src="assets/logo.png?v=4" alt="Software Engineering" />
+        <div class="now-card">
+          <div class="label">Currently</div>
+          <p>Writing an essay on design patterns: how they help developers name recurring problems, avoid unnecessary complexity, and choose better solutions with more confidence.</p>
+          <a class="read" routerLink="/articles">Read the draft →</a>
+        </div>
+        <div class="now-card dashed">
+          <div class="label">Teaching</div>
+          <p>Web Development Course — Enroll for free.</p>
+          <a class="read" routerLink="/courses">See the curriculum →</a>
+        </div>
+      </aside>
+    </section>
+  </div>
+
+  <div class="wrap">
+    
+    <section class="section no-top-border">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Latest</div>
+          <h2>From the journal</h2>
+        </div>
+        <a class="view-all" routerLink="/articles">All writing (10) →</a>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-main">
+          <div class="art"></div>
+          <div>
+            <div class="eyebrow" style="color: var(--ink-3);">Essay · 18 min read · Apr 14, 2026</div>
+            <h3 style="margin-top: 10px;">Testing the System You Think You Built</h3>
+            <p class="desc" style="margin-top: 10px;">
+              Tests are not paperwork for developers. They are a way to prove your assumptions, protect old
+              behavior, and make changes without walking through the codebase holding a candle in a haunted
+              basement.
+            </p>
+          </div>
+        </article>
+
+        <div class="feature-side">
+          @for (a of sideArticles; track a.num) {
+            <div class="side-item">
+              <span class="num">{{ a.num }}</span>
+              <h4>{{ a.title }}</h4>
+              <span class="meta">{{ a.meta }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Collections</div>
+          <h2>By topic</h2>
+        </div>
+      </div>
+      <div class="topic-row">
+        @for (t of topics; track t.tag) {
+          <a class="topic" routerLink="/articles" [queryParams]="{ filter: t.filter }">
+            <span class="tag">{{ t.tag }}</span>
+            <h4>{{ t.title }}</h4>
+            <div class="count"><span>articles</span><b>{{ t.count }}</b></div>
+          </a>
+        }
+      </div>
+    </section>
+
+    <section class="section no-border">
+      <div class="course-preview">
+        <div>
+          <div class="tag-line">Course</div>
+          <h3>Web Development Course.</h3>
+          <p>
+            A guided path from semantic HTML to shipping a portfolio you're not embarrassed by. 6 modules,
+            one real project.
+          </p>
+          <a class="btn btn-light" routerLink="/courses">See the syllabus →</a>
+        </div>
+        <div class="mini-modules">
+          @for (m of miniModules; track m.num) {
+            <div class="m">
+              <span class="num">{{ m.num }}</span>
+              <span class="title">{{ m.title }}</span>
+              <span class="dur">{{ m.dur }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
