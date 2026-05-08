@@ -354,6 +354,11 @@ nav.primary a.active { color: var(--paper); background: var(--ink); }
   cursor: pointer;
 }
 .section-head .view-all:hover { color: var(--accent); border-color: var(--accent); }
+.platform-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
 /* ───────────────────────────────────────────────
    Feature grid (Home — From the journal)
@@ -1853,10 +1858,36 @@ footer.site-footer .legal {
   .feature-grid > * { border-right: 0; border-bottom: 1px solid var(--rule); }
   .topic-row { grid-template-columns: 1fr; }
   .course-preview { grid-template-columns: 1fr; }
-  .about-hero { grid-template-columns: 1fr; }
-  .portrait { position: static; flex-direction: row; align-items: center; }
-  .portrait .img { width: 120px; aspect-ratio: 1; }
-  .credentials { grid-template-columns: 1fr; }
+  /* About hero stacks; portrait uses a small grid so img + name sit on one row
+     and the socials get their own full-width row that wraps cleanly. */
+  .about-hero { grid-template-columns: 1fr; gap: 28px; padding-top: clamp(28px, 6vw, 56px); }
+  .portrait {
+    position: static;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px 18px;
+    align-items: center;
+  }
+  .portrait .img { width: 96px; height: auto; aspect-ratio: 1; grid-row: 1; grid-column: 1; }
+  .portrait > div:not(.socials) { grid-row: 1; grid-column: 2; min-width: 0; }
+  .portrait .socials { grid-row: 2; grid-column: 1 / -1; margin-top: 0; flex-wrap: wrap; row-gap: 8px; }
+
+  /* Email popover: align to the icon's left edge so it never overflows the viewport. */
+  .email-popover { left: 0; transform: none; max-width: calc(100vw - 32px); }
+  .email-popover::before { left: 14px; }
+  @keyframes emailPopIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* About body: let paragraphs use the full column width on mobile. */
+  .about-body p, .about-body .lede { max-width: 100%; }
+
+  .credentials { grid-template-columns: 1fr; gap: 28px; }
+
+  /* Section head: let "Open Substack / Open Medium" pills drop below the heading
+     when they don't fit alongside it, and let the two pills wrap onto two lines
+     if the viewport is narrower than they need. */
+  .section-head { flex-wrap: wrap; align-items: flex-start; gap: 16px 20px; margin-bottom: 24px; }
+  .section-head > div:first-child { min-width: 0; }
+  .platform-link { font-size: 12.5px; padding: 7px 12px; }
   .courses-grid { grid-template-columns: 1fr; }
   .course-detail .headline { grid-template-columns: 1fr; }
   .highlights { grid-template-columns: 1fr; }
@@ -1874,6 +1905,47 @@ footer.site-footer .legal {
     border-bottom: 1px solid var(--rule);
   }
   .support-card { grid-template-columns: 1fr; }
-  footer.site-footer .wrap { grid-template-columns: 1fr; }
-  nav.primary { display: none; }
+
+  /* Footer: keep Sections + Elsewhere side by side on mobile.
+     Colophon (first child) and .legal (last child) span both columns. */
+  footer.site-footer .wrap {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 24px;
+  }
+  footer.site-footer .wrap > :first-child { grid-column: 1 / -1; }
+
+  /* Header: keep nav visible. Wraps to a second row, horizontally scrollable
+     so any number of links fits regardless of viewport width. */
+  .site-header .wrap {
+    flex-wrap: wrap;
+    height: auto;
+    gap: 12px 16px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  nav.primary {
+    order: 99;
+    width: 100%;
+    margin-left: 0;
+    gap: 2px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  nav.primary::-webkit-scrollbar { display: none; }
+  nav.primary a {
+    padding: 6px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+  .brand { font-size: 17px; }
+  .brand .mark { width: 26px; height: 26px; }
+  .support-pill, .sub-cta { padding: 6px 11px; font-size: 12.5px; }
+}
+
+@media (max-width: 480px) {
+  /* Tightest phone widths: drop the "Support" label, keep the icon. */
+  .support-pill { padding: 7px; gap: 0; }
+  .support-pill span { display: none; }
 }
