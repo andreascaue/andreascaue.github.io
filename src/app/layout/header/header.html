@@ -1,0 +1,25 @@
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" routerLink="/">
+      <img class="mark" src="assets/logo.png?v=4" alt="" />
+      <span>Andreas Magalhaes</span>
+    </a>
+    <nav class="primary">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Index</a>
+      <a routerLink="/about" routerLinkActive="active">About</a>
+      <a routerLink="/articles" routerLinkActive="active">Writing</a>
+      <a routerLink="/projects" routerLinkActive="active">Projects</a>
+      <a routerLink="/courses" routerLinkActive="active">Courses</a>
+    </nav>
+    <a class="support-pill" href="#donate" (click)="scrollToDonate($event)" title="Support the writing">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z" />
+      </svg>
+      <span>Support</span>
+    </a>
+    <a class="sub-cta" href="https://andreasmagalhaes.substack.com" target="_blank" rel="noopener">
+      <span class="dot"></span>
+      Subscribe
+    </a>
+  </div>
+</header>
