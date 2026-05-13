@@ -1809,10 +1809,12 @@ nav.primary a.active { color: var(--paper); background: var(--ink); }
   position: relative;
   background: var(--card);
   border: 1px solid var(--rule);
-  border-radius: 18px;
+  border-radius: 16px;
   width: 100%;
-  max-width: 560px;
-  padding: clamp(28px, 4vw, 44px);
+  max-width: 520px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: clamp(20px, 3vw, 32px);
   box-shadow: 0 24px 60px -20px rgba(30, 20, 10, 0.28);
   animation: contactRise .22s ease;
 }
@@ -1843,28 +1845,28 @@ nav.primary a.active { color: var(--paper); background: var(--ink); }
   cursor: not-allowed;
 }
 
-.contact-modal-head { margin-bottom: 26px; }
+.contact-modal-head { margin-bottom: 18px; }
 .contact-modal-head .eyebrow { display: inline-block; }
 .contact-modal-head h2 {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(28px, 3.4vw, 38px);
+  font-size: clamp(24px, 2.8vw, 30px);
   letter-spacing: -0.02em;
   line-height: 1.08;
-  margin: 8px 0 14px;
+  margin: 4px 0 8px;
 }
 .contact-modal-lede {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--ink-2);
   margin: 0;
   max-width: 52ch;
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
 }
 .contact-field {
   display: flex;
@@ -1884,20 +1886,20 @@ nav.primary a.active { color: var(--paper); background: var(--ink); }
   appearance: none;
   font: inherit;
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 14.5px;
   color: var(--ink);
   background: var(--paper-3);
   border: 1px solid var(--rule-2);
   border-radius: 10px;
-  padding: 12px 14px;
+  padding: 9px 12px;
   outline: none;
   width: 100%;
   transition: border-color .15s, background .15s, box-shadow .15s;
 }
 .contact-field textarea {
   resize: vertical;
-  min-height: 140px;
-  line-height: 1.55;
+  min-height: 96px;
+  line-height: 1.5;
 }
 .contact-field input:focus,
 .contact-field textarea:focus {
@@ -1921,10 +1923,10 @@ nav.primary a.active { color: var(--paper); background: var(--ink); }
 }
 
 .contact-status {
-  padding: 12px 14px;
-  border-radius: 10px;
-  font-size: 13.5px;
-  line-height: 1.5;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.45;
 }
 .contact-status-success {
   background: color-mix(in oklab, var(--accent-soft) 55%, var(--paper-3));
@@ -1941,7 +1943,11 @@ nav.primary a.active { color: var(--paper); background: var(--ink); }
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 4px;
+  margin-top: 2px;
+}
+.contact-actions .btn {
+  padding: 9px 18px;
+  font-size: 13.5px;
 }
 
 .contact-pill {
