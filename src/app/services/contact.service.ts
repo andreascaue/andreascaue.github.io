@@ -15,6 +15,7 @@ export class ContactService {
   private readonly endpoint = 'https://formspree.io/f/mwvywobk';
 
   sendMessage(payload: ContactMessage): Observable<unknown> {
+
     return this.http.post(
       this.endpoint,
       {
