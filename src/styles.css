@@ -359,6 +359,11 @@ nav.primary a.active { color: var(--paper); background: var(--ink); }
   gap: 10px;
   flex-wrap: wrap;
 }
+.platform-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
 /* ───────────────────────────────────────────────
    Feature grid (Home — From the journal)
@@ -2049,6 +2054,36 @@ footer.site-footer .legal {
   .feature-grid > * { border-right: 0; border-bottom: 1px solid var(--rule); }
   .topic-row { grid-template-columns: 1fr; }
   .course-preview { grid-template-columns: 1fr; }
+  /* About hero stacks; portrait uses a small grid so img + name sit on one row
+     and the socials get their own full-width row that wraps cleanly. */
+  .about-hero { grid-template-columns: 1fr; gap: 28px; padding-top: clamp(28px, 6vw, 56px); }
+  .portrait {
+    position: static;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px 18px;
+    align-items: center;
+  }
+  .portrait .img { width: 96px; height: auto; aspect-ratio: 1; grid-row: 1; grid-column: 1; }
+  .portrait > div:not(.socials) { grid-row: 1; grid-column: 2; min-width: 0; }
+  .portrait .socials { grid-row: 2; grid-column: 1 / -1; margin-top: 0; flex-wrap: wrap; row-gap: 8px; }
+
+  /* Email popover: align to the icon's left edge so it never overflows the viewport. */
+  .email-popover { left: 0; transform: none; max-width: calc(100vw - 32px); }
+  .email-popover::before { left: 14px; }
+  @keyframes emailPopIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* About body: let paragraphs use the full column width on mobile. */
+  .about-body p, .about-body .lede { max-width: 100%; }
+
+  .credentials { grid-template-columns: 1fr; gap: 28px; }
+
+  /* Section head: let "Open Substack / Open Medium" pills drop below the heading
+     when they don't fit alongside it, and let the two pills wrap onto two lines
+     if the viewport is narrower than they need. */
+  .section-head { flex-wrap: wrap; align-items: flex-start; gap: 16px 20px; margin-bottom: 24px; }
+  .section-head > div:first-child { min-width: 0; }
+  .platform-link { font-size: 12.5px; padding: 7px 12px; }
   /* About hero stacks; portrait uses a small grid so img + name sit on one row
      and the socials get their own full-width row that wraps cleanly. */
   .about-hero { grid-template-columns: 1fr; gap: 28px; padding-top: clamp(28px, 6vw, 56px); }
