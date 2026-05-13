@@ -1,0 +1,117 @@
+@if (modal.isOpen()) {
+  <div class="contact-modal-backdrop" (click)="onBackdropClick($event)">
+    <div
+      class="contact-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="contact-modal-title"
+    >
+      <button
+        type="button"
+        class="contact-modal-close"
+        (click)="close()"
+        [disabled]="isSubmitting()"
+        aria-label="Close contact form"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="contact-modal-head">
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-modal-title" class="display">Send me a message</h2>
+        <p class="contact-modal-lede">
+          Have a question, opportunity, collaboration idea, or technical discussion in mind?
+          Send me a message and I will get back to you.
+        </p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="contact-form" novalidate>
+        <div class="contact-field">
+          <label for="contact-name">Name</label>
+          <input
+            id="contact-name"
+            type="text"
+            formControlName="name"
+            autocomplete="name"
+            [attr.aria-invalid]="form.controls.name.invalid && form.controls.name.touched ? 'true' : null"
+          />
+          @if (form.controls.name.invalid && form.controls.name.touched) {
+            <p class="contact-error">Name is required.</p>
+          }
+        </div>
+
+        <div class="contact-field">
+          <label for="contact-email">Email</label>
+          <input
+            id="contact-email"
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            inputmode="email"
+            [attr.aria-invalid]="form.controls.email.invalid && form.controls.email.touched ? 'true' : null"
+          />
+          @if (form.controls.email.invalid && form.controls.email.touched) {
+            <p class="contact-error">Enter a valid email address.</p>
+          }
+        </div>
+
+        <div class="contact-field">
+          <label for="contact-subject">Subject</label>
+          <input
+            id="contact-subject"
+            type="text"
+            formControlName="subject"
+            [attr.aria-invalid]="form.controls.subject.invalid && form.controls.subject.touched ? 'true' : null"
+          />
+          @if (form.controls.subject.invalid && form.controls.subject.touched) {
+            <p class="contact-error">Subject is required.</p>
+          }
+        </div>
+
+        <div class="contact-field">
+          <label for="contact-message">Message</label>
+          <textarea
+            id="contact-message"
+            rows="6"
+            formControlName="message"
+            [attr.aria-invalid]="form.controls.message.invalid && form.controls.message.touched ? 'true' : null"
+          ></textarea>
+          @if (form.controls.message.invalid && form.controls.message.touched) {
+            <p class="contact-error">Message is required.</p>
+          }
+        </div>
+
+        @if (successMessage()) {
+          <div class="contact-status contact-status-success" role="status">
+            {{ successMessage() }}
+          </div>
+        }
+        @if (errorMessage()) {
+          <div class="contact-status contact-status-error" role="alert">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <div class="contact-actions">
+          <button
+            type="button"
+            class="btn btn-ghost"
+            (click)="close()"
+            [disabled]="isSubmitting()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="isSubmitting()"
+          >
+            {{ isSubmitting() ? 'Sending…' : 'Send message' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}
