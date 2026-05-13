@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -15,12 +15,22 @@ export class ContactService {
   private readonly endpoint = 'https://formspree.io/f/mwvywobk';
 
   sendMessage(payload: ContactMessage): Observable<unknown> {
-    return this.http.post(this.endpoint, {
-      name: payload.name,
-      email: payload.email,
-      subject: payload.subject,
-      message: payload.message,
-      _replyto: payload.email,
-    });
+
+    return this.http.post(
+      this.endpoint,
+      {
+        name: payload.name,
+        email: payload.email,
+        subject: payload.subject,
+        message: payload.message,
+        _replyto: payload.email,
+      },
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        }),
+      },
+    );
   }
 }
