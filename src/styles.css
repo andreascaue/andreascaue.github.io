@@ -359,6 +359,11 @@ nav.primary a.active { color: var(--paper); background: var(--ink); }
   gap: 10px;
   flex-wrap: wrap;
 }
+.platform-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
 /* ───────────────────────────────────────────────
    Feature grid (Home — From the journal)
@@ -1783,6 +1788,197 @@ nav.primary a.active { color: var(--paper); background: var(--ink); }
 }
 
 /* ───────────────────────────────────────────────
+   Contact modal
+─────────────────────────────────────────────── */
+.contact-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: color-mix(in oklab, var(--ink) 38%, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  overflow-y: auto;
+  animation: contactFadeIn .18s ease;
+}
+@keyframes contactFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.contact-modal {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 560px;
+  padding: clamp(28px, 4vw, 44px);
+  box-shadow: 0 24px 60px -20px rgba(30, 20, 10, 0.28);
+  animation: contactRise .22s ease;
+}
+@keyframes contactRise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.contact-modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 34px; height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--rule-2);
+  background: transparent;
+  color: var(--ink-3);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.contact-modal-close:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.contact-modal-close:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.contact-modal-head { margin-bottom: 26px; }
+.contact-modal-head .eyebrow { display: inline-block; }
+.contact-modal-head h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(28px, 3.4vw, 38px);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 8px 0 14px;
+}
+.contact-modal-lede {
+  font-size: 15px;
+  color: var(--ink-2);
+  margin: 0;
+  max-width: 52ch;
+  line-height: 1.6;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.contact-field label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+.contact-field input,
+.contact-field textarea {
+  appearance: none;
+  font: inherit;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--paper-3);
+  border: 1px solid var(--rule-2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  outline: none;
+  width: 100%;
+  transition: border-color .15s, background .15s, box-shadow .15s;
+}
+.contact-field textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.55;
+}
+.contact-field input:focus,
+.contact-field textarea:focus {
+  border-color: var(--accent);
+  background: var(--card);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.contact-field input[aria-invalid="true"],
+.contact-field textarea[aria-invalid="true"] {
+  border-color: #c45454;
+}
+.contact-field input::placeholder,
+.contact-field textarea::placeholder { color: var(--ink-4); }
+
+.contact-error {
+  margin: 2px 0 0;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: #b13a3a;
+}
+
+.contact-status {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.contact-status-success {
+  background: color-mix(in oklab, var(--accent-soft) 55%, var(--paper-3));
+  border: 1px solid var(--accent-soft);
+  color: var(--accent-2);
+}
+.contact-status-error {
+  background: #faecec;
+  border: 1px solid #ecc8c8;
+  color: #913030;
+}
+
+.contact-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border: 1px solid var(--rule-2);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--ink-2);
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.contact-pill:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.contact-pill svg { color: var(--accent); }
+
+@media (max-width: 600px) {
+  .contact-modal-backdrop {
+    padding: 12px;
+    align-items: flex-start;
+  }
+  .contact-modal { padding: 24px; }
+  .contact-actions { flex-direction: column-reverse; }
+  .contact-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ───────────────────────────────────────────────
    Footer
 ─────────────────────────────────────────────── */
 footer.site-footer {
@@ -1888,6 +2084,36 @@ footer.site-footer .legal {
   .section-head { flex-wrap: wrap; align-items: flex-start; gap: 16px 20px; margin-bottom: 24px; }
   .section-head > div:first-child { min-width: 0; }
   .platform-link { font-size: 12.5px; padding: 7px 12px; }
+  /* About hero stacks; portrait uses a small grid so img + name sit on one row
+     and the socials get their own full-width row that wraps cleanly. */
+  .about-hero { grid-template-columns: 1fr; gap: 28px; padding-top: clamp(28px, 6vw, 56px); }
+  .portrait {
+    position: static;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px 18px;
+    align-items: center;
+  }
+  .portrait .img { width: 96px; height: auto; aspect-ratio: 1; grid-row: 1; grid-column: 1; }
+  .portrait > div:not(.socials) { grid-row: 1; grid-column: 2; min-width: 0; }
+  .portrait .socials { grid-row: 2; grid-column: 1 / -1; margin-top: 0; flex-wrap: wrap; row-gap: 8px; }
+
+  /* Email popover: align to the icon's left edge so it never overflows the viewport. */
+  .email-popover { left: 0; transform: none; max-width: calc(100vw - 32px); }
+  .email-popover::before { left: 14px; }
+  @keyframes emailPopIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* About body: let paragraphs use the full column width on mobile. */
+  .about-body p, .about-body .lede { max-width: 100%; }
+
+  .credentials { grid-template-columns: 1fr; gap: 28px; }
+
+  /* Section head: let "Open Substack / Open Medium" pills drop below the heading
+     when they don't fit alongside it, and let the two pills wrap onto two lines
+     if the viewport is narrower than they need. */
+  .section-head { flex-wrap: wrap; align-items: flex-start; gap: 16px 20px; margin-bottom: 24px; }
+  .section-head > div:first-child { min-width: 0; }
+  .platform-link { font-size: 12.5px; padding: 7px 12px; }
   .courses-grid { grid-template-columns: 1fr; }
   .course-detail .headline { grid-template-columns: 1fr; }
   .highlights { grid-template-columns: 1fr; }
@@ -1941,11 +2167,13 @@ footer.site-footer .legal {
   }
   .brand { font-size: 17px; }
   .brand .mark { width: 26px; height: 26px; }
-  .support-pill, .sub-cta { padding: 6px 11px; font-size: 12.5px; }
+  .support-pill, .sub-cta, .contact-pill { padding: 6px 11px; font-size: 12.5px; }
 }
 
 @media (max-width: 480px) {
-  /* Tightest phone widths: drop the "Support" label, keep the icon. */
-  .support-pill { padding: 7px; gap: 0; }
-  .support-pill span { display: none; }
+  /* Tightest phone widths: drop the "Support" / "Contact" labels, keep the icons. */
+  .support-pill,
+  .contact-pill { padding: 7px; gap: 0; }
+  .support-pill span,
+  .contact-pill span { display: none; }
 }
