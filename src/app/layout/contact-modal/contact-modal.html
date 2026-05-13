@@ -27,7 +27,14 @@
         </p>
       </div>
 
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="contact-form" novalidate>
+      <form
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        method="POST"
+        action="https://formspree.io/f/mwvywobk"
+        class="contact-form"
+        novalidate
+      >
         <div class="contact-field">
           <label for="contact-name">Name</label>
           <input
